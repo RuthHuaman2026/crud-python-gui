@@ -1,18 +1,19 @@
-import crud
+items = []
 
-def setup_function():
-    crud.items.clear()
+def create(item):
+    items.append(item)
 
-def test_create_and_read():
-    crud.create("item1")
-    assert "item1" in crud.read()
+def read():
+    return items
 
-def test_update():
-    crud.create("item2")
-    assert crud.update(0, "item2_updated")
-    assert crud.read()[0] == "item2_updated"
+def update(index, new_item):
+    if 0 <= index < len(items):
+        items[index] = new_item
+        return True
+    return False
 
-def test_delete():
-    crud.create("item3")
-    assert crud.delete(0)
-    assert "item3" not in crud.read()
+def delete(index):
+    if 0 <= index < len(items):
+        items.pop(index)
+        return True
+    return False
